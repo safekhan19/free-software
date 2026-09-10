@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Free Software</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE7D8;
+    --paper-deep: #E3DCC8;
+    --ink: #21241F;
+    --ink-soft: #52544C;
+    --rule: #C6BC9F;
+    --amber: #B8792E;
+    --teal: #3E6E63;
+    --card: #F5F2E7;
+    --max: 800px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    color:var(--ink);
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(135deg, var(--paper) 0%, var(--paper-deep) 100%),
+      radial-gradient(circle at 10% 15%, rgba(178,58,58,0.52) 0%, transparent 52%),
+      radial-gradient(circle at 90% 85%, rgba(58,93,174,0.52) 0%, transparent 54%),
+      radial-gradient(circle, rgba(33,36,31,0.05) 1px, transparent 1.6px);
+    background-size: auto, auto, auto, 26px 26px;
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+    background-attachment:fixed;
+    position:relative;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:0.45;
+    mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.13  0 0 0 0 0.14  0 0 0 0 0.12  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index:0;
+  }
+
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:radial-gradient(ellipse 130% 90% at 50% 35%, transparent 60%, rgba(33,36,31,0.09) 100%);
+    z-index:0;
+  }
+
+  header, nav, main, footer{
+    position:relative;
+    z-index:1;
+  }
+
+  a{color:inherit;}
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+  }
+
+  /* ---------- Header ---------- */
+
+  header{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:4.5rem 1.5rem 3rem;
+    border-bottom:1px solid var(--rule);
+  }
+
+  .kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    margin:0 0 1rem;
+    letter-spacing:0.02em;
+  }
+
+  h1{
+    font-size:clamp(2.4rem, 6vw, 3.6rem);
+    font-weight:600;
+    line-height:1.04;
+    letter-spacing:-0.01em;
+    margin:0 0 1.2rem;
+  }
+
+  header p.lede{
+    font-size:1.1rem;
+    color:var(--ink-soft);
+    max-width:56ch;
+    margin:0 0 1.8rem;
+  }
+
+  .count-row{
+    display:flex;
+    gap:2.2rem;
+    flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    margin-bottom:1.6rem;
+  }
+
+  .count-row strong{
+    color:var(--ink);
+    font-size:1.15rem;
+    display:block;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+  }
+
+  #search{
+    width:100%;
+    max-width:340px;
+    padding:0.7rem 0.9rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.88rem;
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-radius:2px;
+    color:var(--ink);
+  }
+  #search::placeholder{ color:var(--ink-soft); }
+
+  /* ---------- Nav ---------- */
+
+  nav{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:1.2rem 1.5rem;
+    display:flex;
+    gap:1.3rem;
+    flex-wrap:wrap;
+    border-bottom:1px solid var(--rule);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    position:sticky;
+    top:0;
+    background:var(--paper);
+    z-index:5;
+  }
+
+  nav a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+    transition:color .15s ease, border-color .15s ease;
+    white-space:nowrap;
+  }
+  nav a:hover{ color:var(--ink); border-color:var(--amber); }
+
+  /* ---------- Sections ---------- */
+
+  main{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 1.5rem;
+  }
+
+  section.category{
+    padding:3.2rem 0 1rem;
+    border-bottom:1px solid var(--rule);
+  }
+  section.category:last-of-type{ border-bottom:none; }
+  section.category.hidden{ display:none; }
+
+  .cat-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:1rem;
+    margin-bottom:0.4rem;
+  }
+
+  .cat-head h2{
+    font-size:1.5rem;
+    font-weight:600;
+    margin:0;
+  }
+
+  .cat-head span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  .cat-desc{
+    color:var(--ink-soft);
+    max-width:56ch;
+    margin:0 0 1.8rem;
+    font-size:0.98rem;
+  }
+
+  .entry-list{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .entry{
+    display:grid;
+    grid-template-columns:190px 1fr auto;
+    gap:1.2rem;
+    align-items:start;
+    padding:1.1rem 0;
+    border-top:1px solid var(--rule);
+    text-decoration:none;
+    color:inherit;
+  }
+  .entry:first-child{ border-top:none; }
+  .entry.hidden{ display:none; }
+
+  .entry-name{
+    font-weight:600;
+    font-size:1.05rem;
+  }
+
+  .entry-desc{
+    color:var(--ink-soft);
+    font-size:0.93rem;
+    line-height:1.45;
+  }
+
+  .entry-meta{
+    text-align:right;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:0.35rem;
+  }
+
+  .license{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.66rem;
+    color:var(--teal);
+    background:rgba(62,110,99,0.1);
+    border:1px solid rgba(62,110,99,0.28);
+    padding:0.15rem 0.45rem;
+    border-radius:2px;
+    white-space:nowrap;
+  }
+
+  .visit{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    color:var(--amber);
+  }
+
+  .entry:hover .entry-name{ color:var(--amber); }
+  .entry:hover{ background:var(--card); }
+
+  .no-results{
+    padding:3rem 0;
+    color:var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.9rem;
+    display:none;
+  }
+  .no-results.show{ display:block; }
+
+  @media (max-width: 640px){
+    .entry{
+      grid-template-columns:1fr;
+      gap:0.4rem;
+    }
+    .entry-meta{
+      flex-direction:row;
+      align-items:center;
+      justify-content:flex-start;
+    }
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:3.5rem 1.5rem 5rem;
+    color:var(--ink-soft);
+    font-size:0.9rem;
+  }
+
+  footer p{ max-width:60ch; margin:0 0 0.8rem; }
+  footer .mono{ font-size:0.78rem; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .entry{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="kicker mono">a working list, updated by hand</p>
+  <h1> <br>Free Software</h1>
+  <p class="lede">Programs you can run, study, share, and change — without asking permission. No trials, no accounts, no catch. Just the software, and who made it.</p>
+  <div class="count-row" id="countRow"></div>
+  <input type="text" id="search" placeholder="Search by name or category…" autocomplete="off">
+</header>
+
+<nav id="navRow"></nav>
+
+<main id="mainContent"></main>
+
+<footer>
+  <p class="mono">Notes</p>
+  <p>"Free" here means freedom, not price — most of this is also free of charge, but the point of each project is that you're permitted to run, inspect, modify, and redistribute it. Licenses are listed as shorthand; read the project's own license file before relying on the details.</p>
+  <p class="mono">Missing something obvious? That's likely — no list this size stays complete for long.</p>
+</footer>
+
+<script>
+const CATEGORIES = [
+  {id:"everyday", name:"Everyday & Writing", desc:"Word processing, note-taking, and reading tools most people open every day."},
+  {id:"creative", name:"Creative", desc:"Image editing, illustration, animation, audio, video, and 3D — tools capable of professional output."},
+  {id:"developer", name:"Developer Tools", desc:"Editors, languages, runtimes, and infrastructure for building software."},
+  {id:"privacy", name:"Privacy & Communication", desc:"Messaging, browsing, and file sharing built so the operator cannot read what you did not choose to share."},
+  {id:"os", name:"Operating Systems", desc:"Whole environments to run everything above on, if you would rather start from the ground up."},
+  {id:"selfhost", name:"Self-Hosting & Home", desc:"Software you run on your own hardware instead of renting someone else's cloud."},
+  {id:"science", name:"Science & Education", desc:"Statistics, CAD, GIS, and classroom tools built in the open."},
+  {id:"games", name:"Games & Emulation", desc:"Complete games and emulators, built and shared by their communities."},
+  {id:"utilities", name:"Utilities & System Tools", desc:"Archivers, backup tools, and the small utilities that keep a system running."},
+  {id:"network", name:"Networking & Security", desc:"Tools for looking at, defending, and moving data across a network."},
+  {id:"business", name:"Web, Business & Collaboration", desc:"Content management, chat, analytics, and the software that runs a small organization."}
+];
+
+const SOFTWARE = [
+// everyday
+{n:"Firefox",d:"A full web browser with its own independent rendering engine.",l:"MPL 2.0",u:"https://www.mozilla.org/firefox/",c:"everyday"},
+{n:"LibreOffice",d:"Writer, Calc, Impress and more, reading and writing Office formats.",l:"MPL 2.0",u:"https://www.libreoffice.org/",c:"everyday"},
+{n:"Thunderbird",d:"A desktop mail client with calendars, filters, and add-ons.",l:"MPL 2.0",u:"https://www.thunderbird.net/",c:"everyday"},
+{n:"OnlyOffice",d:"An office suite built around close compatibility with Microsoft formats.",l:"AGPL v3",u:"https://www.onlyoffice.com/",c:"everyday"},
+{n:"Joplin",d:"Cross-platform markdown notes with end-to-end encrypted sync.",l:"AGPL v3",u:"https://joplinapp.org/",c:"everyday"},
+{n:"Logseq",d:"An outliner for notes that links ideas together as you write.",l:"AGPL v3",u:"https://logseq.com/",c:"everyday"},
+{n:"Standard Notes",d:"A simple, end-to-end encrypted note-taking app.",l:"AGPL v3",u:"https://standardnotes.com/",c:"everyday"},
+{n:"Trilium Notes",d:"A personal knowledge base with notes arranged in a deep tree.",l:"AGPL v3",u:"https://triliumnotes.org/",c:"everyday"},
+{n:"AppFlowy",d:"A workspace for notes, tasks, and databases you can self-host.",l:"AGPL v3",u:"https://appflowy.io/",c:"everyday"},
+{n:"Zim Desktop Wiki",d:"A personal wiki for keeping notes, journals, and to-do lists.",l:"GPL v2",u:"https://zim-wiki.org/",c:"everyday"},
+{n:"FocusWriter",d:"A distraction-free writing environment with themes and daily goals.",l:"GPL v3",u:"https://gottcode.org/focuswriter/",c:"everyday"},
+{n:"Calibre",d:"E-book library management, conversion, and syncing to devices.",l:"GPL v3",u:"https://calibre-ebook.com/",c:"everyday"},
+{n:"Sigil",d:"An editor for authoring and fixing up EPUB e-books.",l:"GPL v3",u:"https://sigil-ebook.com/",c:"everyday"},
+{n:"Scribus",d:"Desktop publishing for newsletters, booklets, and print layouts.",l:"GPL v2",u:"https://www.scribus.net/",c:"everyday"},
+{n:"LyX",d:"A document processor built around LaTeX typesetting.",l:"GPL v2",u:"https://www.lyx.org/",c:"everyday"},
+{n:"Zathura",d:"A minimal, keyboard-driven document viewer.",l:"zlib/GPL",u:"https://pwmt.org/projects/zathura/",c:"everyday"},
+{n:"Okular",d:"A document viewer for PDFs, comics, and more, from the KDE project.",l:"GPL v2",u:"https://okular.kde.org/",c:"everyday"},
+{n:"PDF Arranger",d:"A simple tool for merging, splitting, and reordering PDF pages.",l:"GPL v3",u:"https://github.com/pdfarranger/pdfarranger",c:"everyday"},
+{n:"Notepad++",d:"A lightweight source-code and text editor for Windows.",l:"GPL v3",u:"https://notepad-plus-plus.org/",c:"everyday"},
+{n:"Kate",d:"An advanced text editor from the KDE project.",l:"GPL v2",u:"https://kate-editor.org/",c:"everyday"},
+
+// creative
+{n:"GIMP",d:"A raster image editor for retouching, compositing, and authoring.",l:"GPL v3",u:"https://www.gimp.org/",c:"creative"},
+{n:"Inkscape",d:"Vector illustration built around the SVG format.",l:"GPL v3",u:"https://inkscape.org/",c:"creative"},
+{n:"Blender",d:"3D modeling, animation, simulation, and rendering in one app.",l:"GPL v3",u:"https://www.blender.org/",c:"creative"},
+{n:"Krita",d:"A painting program built for illustrators and concept artists.",l:"GPL v3",u:"https://krita.org/",c:"creative"},
+{n:"Audacity",d:"Multi-track audio recording and editing with effect plugins.",l:"GPL v2",u:"https://www.audacityteam.org/",c:"creative"},
+{n:"OBS Studio",d:"Screen recording and live streaming with scene composition.",l:"GPL v2",u:"https://obsproject.com/",c:"creative"},
+{n:"Shotcut",d:"A cross-platform video editor with a wide range of format support.",l:"GPL v3",u:"https://www.shotcut.org/",c:"creative"},
+{n:"Kdenlive",d:"A non-linear video editor from the KDE project.",l:"GPL v3",u:"https://kdenlive.org/",c:"creative"},
+{n:"Natron",d:"Node-based compositing for visual effects work.",l:"GPL v2",u:"https://natrongithub.github.io/",c:"creative"},
+{n:"Synfig Studio",d:"Vector-based 2D animation with bones and cutout tools.",l:"GPL v3",u:"https://www.synfig.org/",c:"creative"},
+{n:"OpenToonz",d:"A 2D animation package used on professional animated films.",l:"BSD",u:"https://opentoonz.github.io/e/",c:"creative"},
+{n:"Pencil2D",d:"A simple app for hand-drawn 2D animation.",l:"GPL v2",u:"https://www.pencil2d.org/",c:"creative"},
+{n:"Darktable",d:"RAW photo processing and non-destructive editing.",l:"GPL v3",u:"https://www.darktable.org/",c:"creative"},
+{n:"RawTherapee",d:"Another strong RAW photo processor with fine-grained controls.",l:"GPL v3",u:"https://www.rawtherapee.com/",c:"creative"},
+{n:"digiKam",d:"Photo management with tagging, geolocation, and batch editing.",l:"GPL v2",u:"https://www.digikam.org/",c:"creative"},
+{n:"Hugin",d:"Stitches multiple photos into wide panoramas.",l:"GPL v2",u:"https://hugin.sourceforge.io/",c:"creative"},
+{n:"LMMS",d:"A beat and music production studio for making full tracks.",l:"GPL v2",u:"https://lmms.io/",c:"creative"},
+{n:"Ardour",d:"A digital audio workstation for recording and mixing.",l:"GPL v2",u:"https://ardour.org/",c:"creative"},
+{n:"Hydrogen",d:"An advanced drum machine for programming beats.",l:"GPL v2",u:"https://hydrogen-music.org/",c:"creative"},
+{n:"MuseScore",d:"Music notation software for writing and printing sheet music.",l:"GPL v3",u:"https://musescore.org/",c:"creative"},
+{n:"Meshroom",d:"Turns a set of photos into a 3D model through photogrammetry.",l:"MPL 2.0",u:"https://alicevision.org/",c:"creative"},
+{n:"MakeHuman",d:"Generates and customizes realistic 3D human models.",l:"AGPL v3",u:"http://www.makehumancommunity.org/",c:"creative"},
+{n:"Wings3D",d:"A subdivision modeler for building 3D meshes.",l:"BSD",u:"http://www.wings3d.com/",c:"creative"},
+{n:"Pixelorama",d:"A pixel-art editor for sprites and animations.",l:"MIT",u:"https://orama-interactive.itch.io/pixelorama",c:"creative"},
+{n:"LibreSprite",d:"A pixel-art and animation tool descended from an early Aseprite.",l:"GPL v2",u:"https://libresprite.github.io/",c:"creative"},
+
+// developer
+{n:"Visual Studio Code",d:"A source-available code editor with debugging and extensions.",l:"MIT (core)",u:"https://code.visualstudio.com/",c:"developer"},
+{n:"Git",d:"The distributed version control system underneath most codebases.",l:"GPL v2",u:"https://git-scm.com/",c:"developer"},
+{n:"PostgreSQL",d:"A relational database with decades of active development.",l:"PostgreSQL License",u:"https://www.postgresql.org/",c:"developer"},
+{n:"Godot",d:"A 2D and 3D game engine with no royalties on what you ship.",l:"MIT",u:"https://godotengine.org/",c:"developer"},
+{n:"Python",d:"A general-purpose programming language used across most industries.",l:"PSF License",u:"https://www.python.org/",c:"developer"},
+{n:"GCC",d:"The GNU Compiler Collection, supporting C, C++, and more.",l:"GPL v3",u:"https://gcc.gnu.org/",c:"developer"},
+{n:"LLVM / Clang",d:"A compiler infrastructure powering many modern language toolchains.",l:"Apache 2.0",u:"https://llvm.org/",c:"developer"},
+{n:"Node.js",d:"A JavaScript runtime built for servers and command-line tools.",l:"MIT",u:"https://nodejs.org/",c:"developer"},
+{n:"Vim",d:"A fast, keyboard-driven text editor descended from vi.",l:"Vim License",u:"https://www.vim.org/",c:"developer"},
+{n:"Neovim",d:"A modernized, extensible fork of Vim.",l:"Apache 2.0",u:"https://neovim.io/",c:"developer"},
+{n:"GNU Emacs",d:"An extensible text editor that doubles as a computing environment.",l:"GPL v3",u:"https://www.gnu.org/software/emacs/",c:"developer"},
+{n:"IntelliJ IDEA Community",d:"A Java-focused IDE with refactoring and deep code analysis.",l:"Apache 2.0",u:"https://www.jetbrains.com/idea/",c:"developer"},
+{n:"Eclipse IDE",d:"A long-standing, extensible development environment.",l:"EPL 2.0",u:"https://www.eclipse.org/",c:"developer"},
+{n:"SQLite",d:"A self-contained database engine embedded in countless apps.",l:"Public domain",u:"https://www.sqlite.org/",c:"developer"},
+{n:"MariaDB",d:"A relational database forked from MySQL by its original developers.",l:"GPL v2",u:"https://mariadb.org/",c:"developer"},
+{n:"Valkey",d:"An in-memory data store forked from Redis after its license change.",l:"BSD 3-Clause",u:"https://valkey.io/",c:"developer"},
+{n:"Kubernetes",d:"Orchestrates and schedules containerized applications at scale.",l:"Apache 2.0",u:"https://kubernetes.io/",c:"developer"},
+{n:"OpenTofu",d:"Infrastructure-as-code, forked from Terraform after its license change.",l:"MPL 2.0",u:"https://opentofu.org/",c:"developer"},
+{n:"Jenkins",d:"An automation server for building, testing, and deploying software.",l:"MIT",u:"https://www.jenkins.io/",c:"developer"},
+{n:"GitLab Community Edition",d:"Git hosting with issues, CI pipelines, and code review.",l:"MIT",u:"https://about.gitlab.com/",c:"developer"},
+{n:"Gitea",d:"A lightweight, self-hosted Git service.",l:"MIT",u:"https://about.gitea.com/",c:"developer"},
+{n:"Wireshark",d:"Captures and inspects network traffic packet by packet.",l:"GPL v2",u:"https://www.wireshark.org/",c:"developer"},
+{n:"Bruno",d:"An API client for testing requests, kept local instead of cloud-synced.",l:"MIT",u:"https://www.usebruno.com/",c:"developer"},
+{n:"curl",d:"A command-line tool and library for transferring data over networks.",l:"curl license (MIT-like)",u:"https://curl.se/",c:"developer"},
+{n:"Ansible",d:"Automates server configuration using plain-text playbooks.",l:"GPL v3",u:"https://www.ansible.com/",c:"developer"},
+{n:"FFmpeg",d:"Converts, streams, and processes nearly any audio or video format.",l:"LGPL / GPL",u:"https://ffmpeg.org/",c:"developer"},
+{n:"Nginx",d:"A web server and reverse proxy known for handling heavy traffic.",l:"BSD 2-Clause",u:"https://nginx.org/",c:"developer"},
+{n:"Apache HTTP Server",d:"One of the original and most widely deployed web servers.",l:"Apache 2.0",u:"https://httpd.apache.org/",c:"developer"},
+{n:"WordPress",d:"A publishing platform running a large share of the web.",l:"GPL v2",u:"https://wordpress.org/",c:"developer"},
+{n:"Django",d:"A Python web framework built for fast, secure development.",l:"BSD 3-Clause",u:"https://www.djangoproject.com/",c:"developer"},
+{n:"Rust",d:"A systems language focused on memory safety without a garbage collector.",l:"MIT / Apache 2.0",u:"https://www.rust-lang.org/",c:"developer"},
+{n:"Go",d:"A compiled language designed at Google for simple, fast software.",l:"BSD 3-Clause",u:"https://go.dev/",c:"developer"},
+{n:"Deno",d:"A secure-by-default JavaScript and TypeScript runtime.",l:"MIT",u:"https://deno.com/",c:"developer"},
+{n:"Zed",d:"A fast, collaborative code editor written from scratch in Rust.",l:"GPL / Apache 2.0",u:"https://zed.dev/",c:"developer"},
+{n:"Docker Engine",d:"Builds and runs applications in isolated containers.",l:"Apache 2.0",u:"https://www.docker.com/",c:"developer"},
+
+// privacy
+{n:"Signal",d:"End-to-end encrypted messaging and calls, run by a nonprofit.",l:"GPL v3",u:"https://signal.org/",c:"privacy"},
+{n:"Tor Browser",d:"Routes browsing through volunteer relays to resist tracing.",l:"MPL 2.0",u:"https://www.torproject.org/",c:"privacy"},
+{n:"KeePassXC",d:"A password manager that keeps its database on your own disk.",l:"GPL v3",u:"https://keepassxc.org/",c:"privacy"},
+{n:"Bitwarden",d:"A password manager with browser, desktop, and mobile clients.",l:"GPL v3",u:"https://bitwarden.com/",c:"privacy"},
+{n:"Syncthing",d:"Syncs files directly between your own devices, with no cloud in between.",l:"MPL 2.0",u:"https://syncthing.net/",c:"privacy"},
+{n:"Element",d:"A chat client for the Matrix protocol, hostable by anyone.",l:"AGPL v3",u:"https://element.io/",c:"privacy"},
+{n:"Jitsi Meet",d:"Video conferencing you can run entirely on your own servers.",l:"Apache 2.0",u:"https://jitsi.org/",c:"privacy"},
+{n:"Mumble",d:"Low-latency voice chat built for gaming and group calls.",l:"BSD",u:"https://www.mumble.info/",c:"privacy"},
+{n:"Briar",d:"A messenger that keeps working over Bluetooth and Wi-Fi with no internet.",l:"GPL v3",u:"https://briarproject.org/",c:"privacy"},
+{n:"SimpleX Chat",d:"Messaging with no user identifiers at all, not even a phone number.",l:"AGPL v3",u:"https://simplex.chat/",c:"privacy"},
+{n:"WireGuard",d:"A modern, lightweight VPN protocol and toolset.",l:"GPL v2",u:"https://www.wireguard.com/",c:"privacy"},
+{n:"OpenVPN",d:"A widely used VPN client and protocol implementation.",l:"GPL v2",u:"https://openvpn.net/",c:"privacy"},
+{n:"Tails",d:"A live operating system that leaves no trace on the machine you run it on.",l:"GPL v3",u:"https://tails.net/",c:"privacy"},
+{n:"OnionShare",d:"Shares files or hosts a chat room over the Tor network.",l:"GPL v3",u:"https://onionshare.org/",c:"privacy"},
+{n:"Delta Chat",d:"A messenger that works over ordinary email infrastructure.",l:"GPL v3",u:"https://delta.chat/",c:"privacy"},
+{n:"I2P",d:"An anonymizing network layer for routing traffic and hosting hidden services.",l:"BSD / public domain mix",u:"https://geti2p.net/",c:"privacy"},
+
+// os
+{n:"Ubuntu",d:"A Linux distribution aimed at being easy to install and maintain.",l:"GPL and mixed",u:"https://ubuntu.com/",c:"os"},
+{n:"Debian",d:"A community-run distribution that many others build on top of.",l:"DFSG-compliant",u:"https://www.debian.org/",c:"os"},
+{n:"Fedora",d:"A distribution that tracks upstream software closely and ships it early.",l:"GPL and mixed",u:"https://fedoraproject.org/",c:"os"},
+{n:"Arch Linux",d:"A minimal, rolling-release distribution built for hands-on control.",l:"GPL and mixed",u:"https://archlinux.org/",c:"os"},
+{n:"Linux Mint",d:"A distribution built on Ubuntu, aimed at a familiar desktop layout.",l:"GPL and mixed",u:"https://linuxmint.com/",c:"os"},
+{n:"openSUSE",d:"A distribution offering both a stable and a rolling-release edition.",l:"GPL and mixed",u:"https://www.opensuse.org/",c:"os"},
+{n:"Manjaro",d:"An Arch-based distribution with a more approachable setup.",l:"GPL and mixed",u:"https://manjaro.org/",c:"os"},
+{n:"Pop!_OS",d:"A distribution from System76 tuned for their own hardware.",l:"GPL and mixed",u:"https://pop.system76.com/",c:"os"},
+{n:"FreeBSD",d:"A Unix-like operating system known for stability and networking.",l:"BSD",u:"https://www.freebsd.org/",c:"os"},
+{n:"OpenBSD",d:"A Unix-like system that prioritizes security and clean code.",l:"BSD",u:"https://www.openbsd.org/",c:"os"},
+{n:"Qubes OS",d:"Isolates tasks into separate virtual machines for security.",l:"GPL v2",u:"https://www.qubes-os.org/",c:"os"},
+{n:"Haiku",d:"A modern continuation of the BeOS desktop operating system.",l:"MIT",u:"https://www.haiku-os.org/",c:"os"},
+{n:"ReactOS",d:"An operating system aiming for binary compatibility with Windows.",l:"GPL v2",u:"https://reactos.org/",c:"os"},
+{n:"postmarketOS",d:"A Linux distribution built for keeping old phones usable.",l:"GPL and mixed",u:"https://postmarketos.org/",c:"os"},
+
+// selfhost
+{n:"Nextcloud",d:"Self-hosted file storage, calendar, and contacts.",l:"AGPL v3",u:"https://nextcloud.com/",c:"selfhost"},
+{n:"Home Assistant",d:"A hub for controlling smart-home devices from any brand.",l:"Apache 2.0",u:"https://www.home-assistant.io/",c:"selfhost"},
+{n:"Jellyfin",d:"A media server for organizing and streaming your own video library.",l:"GPL v2",u:"https://jellyfin.org/",c:"selfhost"},
+{n:"OpenMediaVault",d:"A network-attached storage operating system built on Debian.",l:"GPL v3",u:"https://www.openmediavault.org/",c:"selfhost"},
+{n:"TrueNAS CORE",d:"A storage operating system built around the ZFS filesystem.",l:"BSD",u:"https://www.truenas.com/truenas-core/",c:"selfhost"},
+{n:"Immich",d:"Backs up and organizes phone photos on your own server.",l:"AGPL v3",u:"https://immich.app/",c:"selfhost"},
+{n:"Paperless-ngx",d:"Scans, tags, and archives paper documents into a searchable store.",l:"GPL v3",u:"https://docs.paperless-ngx.com/",c:"selfhost"},
+{n:"Vaultwarden",d:"A lightweight, self-hosted server compatible with Bitwarden clients.",l:"AGPL v3",u:"https://github.com/dani-garcia/vaultwarden",c:"selfhost"},
+{n:"FreshRSS",d:"A self-hosted feed reader for following sites without an algorithm.",l:"AGPL v3",u:"https://freshrss.org/",c:"selfhost"},
+{n:"Wallabag",d:"Saves articles to read later, stripped of ads and clutter.",l:"MIT",u:"https://www.wallabag.org/",c:"selfhost"},
+{n:"Grocy",d:"Tracks groceries, chores, and household inventory.",l:"MIT",u:"https://grocy.info/",c:"selfhost"},
+{n:"Node-RED",d:"Wires together hardware, APIs, and services with a flow-based editor.",l:"Apache 2.0",u:"https://nodered.org/",c:"selfhost"},
+{n:"Mealie",d:"A recipe manager for organizing meals and building shopping lists.",l:"AGPL v3",u:"https://mealie.io/",c:"selfhost"},
+{n:"Actual Budget",d:"A local-first budgeting app based on envelope budgeting.",l:"MIT",u:"https://actualbudget.org/",c:"selfhost"},
+{n:"Firefly III",d:"A personal finance manager for tracking spending and budgets.",l:"AGPL v3",u:"https://www.firefly-iii.org/",c:"selfhost"},
+{n:"GnuCash",d:"Personal and small-business accounting with double-entry bookkeeping.",l:"GPL v3",u:"https://www.gnucash.org/",c:"selfhost"},
+{n:"HandBrake",d:"Converts and compresses video between formats.",l:"GPL v2",u:"https://handbrake.fr/",c:"selfhost"},
+{n:"Pi-hole",d:"Blocks ads and trackers network-wide at the DNS level.",l:"EUPL 1.2",u:"https://pi-hole.net/",c:"selfhost"},
+{n:"AdGuard Home",d:"A network-wide DNS-based ad and tracker blocker.",l:"GPL v3",u:"https://adguard.com/en/adguard-home/overview.html",c:"selfhost"},
+{n:"Portainer Community Edition",d:"A visual dashboard for managing Docker containers.",l:"zlib",u:"https://www.portainer.io/",c:"selfhost"},
+
+// science
+{n:"GNU Octave",d:"A numerical computing language largely compatible with MATLAB scripts.",l:"GPL v3",u:"https://octave.org/",c:"science"},
+{n:"Scilab",d:"A numerical computation platform for engineering and science.",l:"CeCILL",u:"https://www.scilab.org/",c:"science"},
+{n:"R",d:"A language and environment built for statistical computing.",l:"GPL v2",u:"https://www.r-project.org/",c:"science"},
+{n:"RStudio Desktop",d:"An integrated development environment for the R language.",l:"AGPL v3",u:"https://posit.co/products/open-source/rstudio/",c:"science"},
+{n:"Jupyter Notebook",d:"Combines code, output, and notes in one interactive document.",l:"BSD",u:"https://jupyter.org/",c:"science"},
+{n:"KiCad",d:"Designs circuit schematics and printed circuit boards.",l:"GPL v3",u:"https://www.kicad.org/",c:"science"},
+{n:"FreeCAD",d:"Parametric 3D modeling for mechanical design and engineering.",l:"LGPL v2",u:"https://www.freecad.org/",c:"science"},
+{n:"OpenSCAD",d:"Builds 3D models by describing them in code rather than dragging shapes.",l:"GPL v2",u:"https://openscad.org/",c:"science"},
+{n:"QGIS",d:"A geographic information system for mapping and spatial analysis.",l:"GPL v2",u:"https://qgis.org/",c:"science"},
+{n:"GRASS GIS",d:"A geospatial toolkit used for terrain and remote-sensing analysis.",l:"GPL v2",u:"https://grass.osgeo.org/",c:"science"},
+{n:"Stellarium",d:"A planetarium that renders a realistic sky on your screen.",l:"GPL v2",u:"https://stellarium.org/",c:"science"},
+{n:"Celestia",d:"A real-time 3D simulation of the observable universe.",l:"GPL v2",u:"https://celestiaproject.space/",c:"science"},
+{n:"Anki",d:"A spaced-repetition flashcard app for long-term memorization.",l:"AGPL v3",u:"https://apps.ankiweb.net/",c:"science"},
+{n:"Moodle",d:"A learning management system used by schools and universities.",l:"GPL v3",u:"https://moodle.org/",c:"science"},
+{n:"GCompris",d:"An educational activity suite for young children.",l:"GPL v3",u:"https://gcompris.net/",c:"science"},
+{n:"Tux Paint",d:"A simple, friendly painting program designed for kids.",l:"GPL v2",u:"https://www.tuxpaint.org/",c:"science"},
+{n:"Maxima",d:"A computer algebra system for symbolic math.",l:"GPL v2",u:"https://maxima.sourceforge.io/",c:"science"},
+{n:"SageMath",d:"Brings many open-source math tools together under one interface.",l:"GPL v2",u:"https://www.sagemath.org/",c:"science"},
+
+// games
+{n:"0 A.D.",d:"A historical real-time strategy game set in ancient civilizations.",l:"GPL v2",u:"https://play0ad.com/",c:"games"},
+{n:"SuperTuxKart",d:"A kart-racing game with Tux and friends on the track.",l:"GPL v3",u:"https://supertuxkart.net/",c:"games"},
+{n:"Battle for Wesnoth",d:"A turn-based fantasy strategy game with a long-running campaign set.",l:"GPL v2",u:"https://www.wesnoth.org/",c:"games"},
+{n:"OpenRA",d:"A modernized engine for classic Command & Conquer-era strategy games.",l:"GPL v3",u:"https://www.openra.net/",c:"games"},
+{n:"Veloren",d:"A voxel-based multiplayer RPG built from scratch in Rust.",l:"GPL v3",u:"https://veloren.net/",c:"games"},
+{n:"Minetest",d:"A voxel sandbox engine in the spirit of Minecraft, with its own games.",l:"LGPL v2",u:"https://www.minetest.net/",c:"games"},
+{n:"Freeciv",d:"A turn-based empire-building game inspired by Civilization.",l:"GPL v2",u:"https://www.freeciv.org/",c:"games"},
+{n:"OpenTTD",d:"A transport and logistics simulation inspired by Transport Tycoon.",l:"GPL v2",u:"https://www.openttd.org/",c:"games"},
+{n:"DOSBox",d:"Emulates an old PC to keep classic DOS games running.",l:"GPL v2",u:"https://www.dosbox.com/",c:"games"},
+{n:"RetroArch",d:"A single front end for dozens of console and computer emulators.",l:"GPL v3",u:"https://www.retroarch.com/",c:"games"},
+{n:"Dolphin Emulator",d:"Emulates the GameCube and Wii on modern hardware.",l:"GPL v2",u:"https://dolphin-emu.org/",c:"games"},
+{n:"PCSX2",d:"Emulates the PlayStation 2.",l:"LGPL v3",u:"https://pcsx2.net/",c:"games"},
+{n:"RPCS3",d:"Emulates the PlayStation 3.",l:"GPL v2",u:"https://rpcs3.net/",c:"games"},
+{n:"ScummVM",d:"Keeps old point-and-click adventure games running on modern systems.",l:"GPL v3",u:"https://www.scummvm.org/",c:"games"},
+{n:"Cataclysm: Dark Days Ahead",d:"A deep, text-driven post-apocalyptic survival roguelike.",l:"CC-BY-SA / MIT mix",u:"https://cataclysmdda.org/",c:"games"},
+
+// utilities
+{n:"7-Zip",d:"A file archiver with a high compression ratio.",l:"LGPL v2",u:"https://www.7-zip.org/",c:"utilities"},
+{n:"PeaZip",d:"An archive manager supporting a wide range of formats.",l:"LGPL v3",u:"https://peazip.github.io/",c:"utilities"},
+{n:"qBittorrent",d:"A BitTorrent client with no ads and no bundled extras.",l:"GPL v2",u:"https://www.qbittorrent.org/",c:"utilities"},
+{n:"Transmission",d:"A lightweight, simple BitTorrent client.",l:"MIT / GPL mix",u:"https://transmissionbt.com/",c:"utilities"},
+{n:"BleachBit",d:"Frees disk space by clearing caches, logs, and temp files.",l:"GPL v3",u:"https://www.bleachbit.org/",c:"utilities"},
+{n:"balenaEtcher",d:"Flashes OS images onto USB drives and SD cards.",l:"Apache 2.0",u:"https://etcher.balena.io/",c:"utilities"},
+{n:"Rufus",d:"Creates bootable USB drives, mainly for Windows installers.",l:"GPL v3",u:"https://rufus.ie/",c:"utilities"},
+{n:"GParted",d:"A graphical tool for creating, resizing, and moving disk partitions.",l:"GPL v2",u:"https://gparted.org/",c:"utilities"},
+{n:"Clonezilla",d:"Clones and restores entire disks or partitions.",l:"GPL v2",u:"https://clonezilla.org/",c:"utilities"},
+{n:"Timeshift",d:"Takes system snapshots you can roll back to after a bad update.",l:"GPL v3",u:"https://github.com/linuxmint/timeshift",c:"utilities"},
+{n:"FileZilla",d:"An FTP, SFTP, and FTPS client for transferring files to servers.",l:"GPL v2",u:"https://filezilla-project.org/",c:"utilities"},
+{n:"WinSCP",d:"A Windows client for SCP, SFTP, and FTP transfers.",l:"MIT",u:"https://winscp.net/",c:"utilities"},
+{n:"PuTTY",d:"A lightweight SSH and telnet client for Windows and Unix.",l:"MIT-style",u:"https://www.putty.org/",c:"utilities"},
+{n:"Rclone",d:"Syncs and manages files across dozens of cloud storage providers.",l:"MIT",u:"https://rclone.org/",c:"utilities"},
+{n:"Duplicati",d:"Encrypted, incremental backups to local or cloud storage.",l:"LGPL v2",u:"https://duplicati.com/",c:"utilities"},
+{n:"Restic",d:"A fast, deduplicating backup program with a simple command line.",l:"BSD 2-Clause",u:"https://restic.net/",c:"utilities"},
+{n:"Borg Backup",d:"Deduplicating, encrypted backups designed for efficiency.",l:"BSD 3-Clause",u:"https://www.borgbackup.org/",c:"utilities"},
+{n:"Ventoy",d:"Turns one USB drive into a boot menu for many ISO files at once.",l:"GPL v3",u:"https://www.ventoy.net/",c:"utilities"},
+{n:"ClamAV",d:"An open-source antivirus engine for detecting malware.",l:"GPL v2",u:"https://www.clamav.net/",c:"utilities"},
+{n:"htop",d:"An interactive process viewer for the terminal.",l:"GPL v2",u:"https://htop.dev/",c:"utilities"},
+
+// network
+{n:"Nmap",d:"Scans networks to discover hosts, ports, and running services.",l:"GPL v2 (custom terms)",u:"https://nmap.org/",c:"network"},
+{n:"OpenSSL",d:"A toolkit implementing SSL, TLS, and general cryptography.",l:"Apache 2.0",u:"https://www.openssl.org/",c:"network"},
+{n:"OpenSSH",d:"The standard implementation of secure remote login and file transfer.",l:"BSD-style",u:"https://www.openssh.com/",c:"network"},
+{n:"Metasploit Framework",d:"A penetration-testing framework for finding and verifying exploits.",l:"BSD 3-Clause",u:"https://www.metasploit.com/",c:"network"},
+{n:"Snort",d:"A network intrusion detection and prevention system.",l:"GPL v2",u:"https://www.snort.org/",c:"network"},
+{n:"pfSense CE",d:"A firewall and router platform built on FreeBSD.",l:"Apache 2.0",u:"https://www.pfsense.org/",c:"network"},
+{n:"OPNsense",d:"A firewall and routing platform forked from pfSense.",l:"BSD 2-Clause",u:"https://opnsense.org/",c:"network"},
+{n:"Wazuh",d:"Security monitoring covering threat detection and log analysis.",l:"GPL v2",u:"https://wazuh.com/",c:"network"},
+{n:"Suricata",d:"A network threat detection engine used for IDS and IPS.",l:"GPL v2",u:"https://suricata.io/",c:"network"},
+{n:"Zeek",d:"A network traffic analysis framework used for security monitoring.",l:"BSD",u:"https://zeek.org/",c:"network"},
+
+// business
+{n:"Drupal",d:"A content management system built for complex, structured sites.",l:"GPL v2",u:"https://www.drupal.org/",c:"business"},
+{n:"Joomla",d:"A content management system positioned between WordPress and Drupal.",l:"GPL v2",u:"https://www.joomla.org/",c:"business"},
+{n:"MediaWiki",d:"The wiki software that runs Wikipedia and many other wikis.",l:"GPL v2",u:"https://www.mediawiki.org/",c:"business"},
+{n:"phpMyAdmin",d:"A web interface for administering MySQL and MariaDB databases.",l:"GPL v2",u:"https://www.phpmyadmin.net/",c:"business"},
+{n:"Redmine",d:"Project management and issue tracking with Gantt charts.",l:"GPL v2",u:"https://www.redmine.org/",c:"business"},
+{n:"Odoo Community",d:"A modular suite of business apps covering sales, inventory, and more.",l:"LGPL v3",u:"https://www.odoo.com/",c:"business"},
+{n:"ERPNext",d:"An open-source ERP covering accounting, manufacturing, and HR.",l:"GPL v3",u:"https://frappe.io/erpnext",c:"business"},
+{n:"Mattermost",d:"Team chat you can host on your own infrastructure.",l:"MIT (core)",u:"https://mattermost.com/",c:"business"},
+{n:"Rocket.Chat",d:"A team chat platform with video calls and integrations.",l:"MIT",u:"https://www.rocket.chat/",c:"business"},
+{n:"Discourse",d:"Modern discussion-forum software built for online communities.",l:"GPL v2",u:"https://www.discourse.org/",c:"business"},
+{n:"phpBB",d:"Long-standing forum software used by many online communities.",l:"GPL v2",u:"https://www.phpbb.com/",c:"business"},
+{n:"Matomo",d:"Privacy-respecting web analytics you host yourself.",l:"GPL v3",u:"https://matomo.org/",c:"business"},
+{n:"Grafana",d:"Builds dashboards for visualizing metrics from many data sources.",l:"AGPL v3",u:"https://grafana.com/",c:"business"},
+{n:"Prometheus",d:"Collects and queries time-series metrics for monitoring systems.",l:"Apache 2.0",u:"https://prometheus.io/",c:"business"},
+{n:"Zabbix",d:"Monitors servers, networks, and applications with alerting.",l:"GPL v2",u:"https://www.zabbix.com/",c:"business"}
+];
+
+</script>
+<script>
+  const countRow = document.getElementById('countRow');
+  const navRow = document.getElementById('navRow');
+  const mainContent = document.getElementById('mainContent');
+  const search = document.getElementById('search');
+
+  countRow.innerHTML = `
+    <div><strong>${SOFTWARE.length}</strong>programs listed</div>
+    <div><strong>${CATEGORIES.length}</strong>categories</div>
+    <div><strong>0</strong>ads, trackers, or upsells</div>
+  `;
+
+  navRow.innerHTML = CATEGORIES.map(cat => `<a href="#${cat.id}">${cat.name}</a>`).join('');
+
+  function renderMain(){
+    mainContent.innerHTML = CATEGORIES.map(cat => {
+      const items = SOFTWARE.filter(s => s.c === cat.id);
+      const entries = items.map(s => `
+        <a class="entry" href="${s.u}" target="_blank" rel="noopener" data-name="${s.n.toLowerCase()}" data-cat="${cat.name.toLowerCase()}">
+          <div class="entry-name">${s.n}</div>
+          <div class="entry-desc">${s.d}</div>
+          <div class="entry-meta"><span class="license mono">${s.l}</span><span class="visit">visit site →</span></div>
+        </a>
+      `).join('');
+      return `
+        <section class="category" id="${cat.id}">
+          <div class="cat-head">
+            <h2>${cat.name}</h2>
+            <span class="mono">${String(items.length).padStart(2,'0')} entries</span>
+          </div>
+          <p class="cat-desc">${cat.desc}</p>
+          <div class="entry-list">${entries}</div>
+        </section>
+      `;
+    }).join('') + '<p class="no-results">No programs match that search.</p>';
+  }
+
+  renderMain();
+
+  const noResults = document.querySelector('.no-results');
+
+  search.addEventListener('input', () => {
+    const q = search.value.trim().toLowerCase();
+    let anyVisible = false;
+
+    document.querySelectorAll('section.category').forEach(section => {
+      let sectionHasVisible = false;
+      section.querySelectorAll('.entry').forEach(entry => {
+        const match = !q || entry.dataset.name.includes(q) || entry.dataset.cat.includes(q);
+        entry.classList.toggle('hidden', !match);
+        if (match) sectionHasVisible = true;
+      });
+      section.classList.toggle('hidden', !sectionHasVisible);
+      if (sectionHasVisible) anyVisible = true;
+    });
+
+    noResults.classList.toggle('show', !anyVisible);
+  });
+</script>
+
+</body>
+</html>
